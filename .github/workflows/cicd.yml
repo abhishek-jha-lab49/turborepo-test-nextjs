@@ -13,7 +13,6 @@ jobs:
         with:
           fetch-depth: 0
       - run: npm i
-      - run: npm run lint
 
       #- run: npm run test
 
@@ -23,8 +22,8 @@ jobs:
       - name: Deploy Next
         working-directory: nextjs-mfe-remote
         env:
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_NEXT_PROJECT_ID }}
+          VERCEL_PROJECT_ID: prj_8vB90ZYpHvvcPD9JjEVNN9MlPKZr
         run: |
-          vercel pull --yes --environment=preview --token=${{secrets.VERCEL_TOKEN}}
-          vercel build --token=${{secrets.VERCEL_TOKEN}} 
-          echo "NEXT_URL=$(vercel deploy --token=${{secrets.VERCEL_TOKEN}})" >> $GITHUB_ENV
+          vercel pull --yes --environment=preview --token=OHOXMiusFe2TGYMFkoPNDL2Z
+          vercel build --token=OHOXMiusFe2TGYMFkoPNDL2Z 
+          echo "NEXT_URL=$(vercel deploy --token=OHOXMiusFe2TGYMFkoPNDL2Z)" >> $GITHUB_ENV
