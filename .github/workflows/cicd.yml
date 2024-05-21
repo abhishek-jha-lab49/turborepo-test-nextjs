@@ -1,0 +1,30 @@
+name: Micro Frontend- Non Prod
+on:
+  push:
+    branches: [master]
+env:
+  VERCEL_ORG_ID: team_GUvz6YdFYkgxVl5oza8UF4u3
+
+jobs:
+  cicd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: npm i
+      - run: npm run lint
+
+      #- run: npm run test
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy Next
+        working-directory: nextjs-mfe-remote
+        env:
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_NEXT_PROJECT_ID }}
+        run: |
+          vercel pull --yes --environment=preview --token=${{secrets.VERCEL_TOKEN}}
+          vercel build --token=${{secrets.VERCEL_TOKEN}} 
+          echo "NEXT_URL=$(vercel deploy --token=${{secrets.VERCEL_TOKEN}})" >> $GITHUB_ENV
